@@ -15,15 +15,15 @@ public class BaseFrame extends JFrame {
         String matriz1 = "Primeira Matriz";
         String matriz2 = "Segunda Matriz";
 
-        int first_a11;
-        int first_a12;
-        int first_a21;
-        int first_a22;
+        int first_a11 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a11 da " + matriz1));
+        int first_a12 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a12 da " + matriz1));
+        int first_a21 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a21 da " + matriz1));
+        int first_a22 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a22 da " + matriz1));
 
-        int two_a11;
-        int two_a12;
-        int two_a21;
-        int two_a22;
+        int two_a11 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a11 da " + matriz2));
+        int two_a12 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a12 da " + matriz2));
+        int two_a21 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a21 da " + matriz2));
+        int two_a22 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a22 da " + matriz2));
 
         int a11;
         int a12;
@@ -35,15 +35,7 @@ public class BaseFrame extends JFrame {
         switch(type){
             case 0: // soma
 
-                first_a11 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a11 da " + matriz1));
-                first_a12 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a12 da " + matriz1));
-                first_a21 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a21 da " + matriz1));
-                first_a22 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a22 da " + matriz1));
 
-                two_a11 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a11 da " + matriz2));
-                two_a12 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a12 da " + matriz2));
-                two_a21 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a21 da " + matriz2));
-                two_a22 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a22 da " + matriz2));
 
                 a11 = first_a11 + two_a11;
                 a12 = first_a12 + two_a12;
@@ -55,16 +47,6 @@ public class BaseFrame extends JFrame {
                 break;
             case 1: // subtração
 
-                first_a11 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a11 da " + matriz1));
-                first_a12 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a12 da " + matriz1));
-                first_a21 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a21 da " + matriz1));
-                first_a22 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a22 da " + matriz1));
-
-                two_a11 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a11 da " + matriz2));
-                two_a12 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a12 da " + matriz2));
-                two_a21 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a21 da " + matriz2));
-                two_a22 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a22 da " + matriz2));
-
                 a11 = first_a11 - two_a11;
                 a12 = first_a12 - two_a12;
                 a21 = first_a21 - two_a21;
@@ -74,22 +56,20 @@ public class BaseFrame extends JFrame {
                 break;
             case 2: // multiplicação
 
-                first_a11 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a11 da " + matriz1));
-                first_a12 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a12 da " + matriz1));
-                first_a21 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a21 da " + matriz1));
-                first_a22 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a22 da " + matriz1));
-
-                two_a11 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a11 da " + matriz2));
-                two_a12 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a12 da " + matriz2));
-                two_a21 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a21 da " + matriz2));
-                two_a22 = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero a22 da " + matriz2));
-
                 a11 = (first_a11 * two_a11) + (first_a12 * two_a21);
                 a12 = (first_a11 * two_a12) + (first_a12 * two_a22);
                 a21 = (first_a21 * two_a11) + (first_a22 * two_a21);
                 a22 = (first_a21 * two_a12) + (first_a22 * two_a22);
 
                 result = "Resultado das Matrizes(Multiplicação):\n[ " + a11 + "  " + a12 + " ]\n[ " + a21 + "  " + a22 + " ]";
+                break;
+            default:
+
+                a11 = 0;
+                a12 = 0;
+                a21 = 0;
+                a22 = 0;
+
                 break;
         }
         if(result != null) {
@@ -105,20 +85,25 @@ public class BaseFrame extends JFrame {
                     title = "Multiplicação";
                     break;
             }
+            if(a11 == 0 && a12 == 0 && a21 == 0 && a22 == 0){
+                title += " Resultado: Matriz nula!";
+            }
             JOptionPane.showMessageDialog(null, result, title, 1);
         }
 
-        int recom = JOptionPane.showConfirmDialog(null, "Deseja recomeçar?");
-        switch(recom){
-            case 0:
-                int vv = Integer.parseInt(JOptionPane.showInputDialog(null, "Soma: 0\nSubtração: 1\nMultipicação: 2"));
-                new BaseFrame(vv);
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-        }
+        new Thread(() -> {
+            int recom = JOptionPane.showConfirmDialog(null, "Deseja recomeçar?");
+            switch(recom){
+                case 0:
+                    int vv = Integer.parseInt(JOptionPane.showInputDialog(null, "Soma: 0\nSubtração: 1\nMultipicação: 2"));
+                    new BaseFrame(vv);
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+            }
+        }).start();
     }
 
 }
